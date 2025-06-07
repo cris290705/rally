@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nic-crea - Plataforma de Talentos</title>
+  <style>
+    :root {
+      /* Paleta de colores principal */
+      --azul-oscuro: #0050A4;
+      --azul-medio: #1A7FC1;
+      --azul-claro: #4DA8DA;
+      --celeste: #A5D8F3;
+      --celeste-claro: #E1F0FA;
+      --rojo-accent: #D7263D;
+      --amarillo-accent: #FFD500;
+      --blanco: #FFFFFF;
+      --gris-claro: #F5F5F5;
+    }
+    
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 0; 
+      padding-bottom: 120px; 
+      background: var(--celeste-claro); 
+      color: #333; 
+    }
+    
+    /* Banner */
+    .banner-container {
+      width: 100%;
+      max-height: 180px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .banner-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Navegación */
+    nav { 
+      position: fixed; 
+      bottom: 0; 
+      width: 100%; 
+      background: var(--azul-oscuro); 
+      border-top: 2px solid var(--amarillo-accent); 
+      display: flex; 
+      justify-content: space-around; 
+      z-index: 10; 
+    }
+    
+    nav a { 
+      text-decoration: none; 
+      color: var(--blanco); 
+      padding: 0.8rem; 
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    nav a:hover {
+      background: var(--azul-medio);
+      transform: translateY(-3px);
+    }
+    
+    /* Secciones */
+    section { 
+      padding: 1.5rem; 
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Tarjetas - Estilo diferente para cada sección */
+    .card { 
+      background: var(--blanco); 
+      padding: 1.5rem; 
+      border-radius: 10px; 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+      margin-bottom: 2rem;
+      border-top: 4px solid var(--azul-medio);
+    }
+    
+    /* Estilo específico para cada sección */
+    #inicio .card {
+      border-top-color: var(--azul-claro);
+      background: linear-gradient(to bottom, var(--blanco) 60%, var(--celeste-claro));
+    }
+    
+    #registro .card {
+      border-top-color: var(--azul-oscuro);
+    }
+    
+    #perfiles .card {
+      border-top-color: var(--celeste);
+    }
+    
+    #conocenos .card {
+      border-top-color: var(--azul-medio);
+    }
+    
+    #contacto .card {
+      border-top-color: var(--azul-claro);
+    }
+    
+    /* Formularios */
+    input, textarea { 
+      width: 100%; 
+      padding: 0.8rem; 
+      margin-bottom: 1rem; 
+      border: 1px solid var(--celeste); 
+      border-radius: 5px; 
+      font-size: 1rem;
+      background-color: var(--celeste-claro);
+    }
+    
+    input:focus, textarea:focus {
+      outline: 2px solid var(--azul-claro);
+      background-color: var(--blanco);
+    }
+    
+    button { 
+      background: var(--rojo-accent); 
+      color: white; 
+      border: none; 
+      padding: 0.8rem 1.5rem; 
+      border-radius: 5px; 
+      cursor: pointer; 
+      font-size: 1rem;
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+    
+    button:hover {
+      background: #B51E33;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Tarjetas de talentos y equipo */
+    .talent-card, .team-card { 
+      border: 1px solid var(--celeste); 
+      padding: 1rem; 
+      border-radius: 8px; 
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+      background: var(--blanco);
+    }
+    
+    .talent-card:hover, .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      border-color: var(--azul-claro);
+    }
+    
+    .talent-img { 
+      width: 80px; 
+      height: 80px; 
+      object-fit: cover; 
+      border-radius: 50%; 
+      margin-right: 15px; 
+      vertical-align: middle; 
+      border: 3px solid var(--amarillo-accent);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* Nuevos estilos para imágenes del equipo */
+    .team-img-container {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
+      border: 4px solid var(--amarillo-accent);
+      padding: 3px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: var(--blanco);
+    }
+    
+    .team-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .team-card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .team-info {
+      margin-top: 10px;
+    }
+    
+    /* Títulos */
+    h1, h2, h3 {
+      color: var(--azul-oscuro);
+    }
+    
+    h2 {
+      border-bottom: 2px solid var(--celeste);
+      padding-bottom: 8px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .banner-container {
+        max-height: 120px;
+      }
+      
+      section {
+        padding: 1rem;
+      }
+      
+      nav a {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .team-img-container {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Banner -->
+  <div class="banner-container">
+    <img src="https://cdn.jsdelivr.net/gh/cris290705/rally@main/Sin%20t%C3%ADtulo%20(Banner%20para%20YouTube).png" 
+         alt="Banner Nic-crea" 
+         class="banner-img">
+  </div>
+
+  <!-- Sección Inicio -->
+  <section id="inicio">
+    <div class="card">
+      <h2>Plataforma de Talentos Creativos</h2>
+      <p>Bienvenido a Nic-crea una plataforma web para aquellos jovenes talentosos que quieren ser conocidos, Estamos para ayudar y potenciar los talentos locales de nuestras ciudades creativas.</p>
+    </div>
+  </section>
+
+  <!-- Sección Registro -->
+  <section id="registro">
+    <div class="card">
+      <h2>Registro de Talento</h2>
+      <form id="talentForm">
+        <input type="text" id="nombre" placeholder="Nombre completo" required />
+        <input type="email" id="correo" placeholder="Correo electrónico" required />
+        <input type="tel" id="telefono" placeholder="Número de teléfono" required />
+        <input type="text" id="ciudad" placeholder="Ciudad (ej. Granada)" required />
+        <input type="text" id="categoria" placeholder="Categoría artística (ej. Pintura, Música)" required />
+        <input type="text" id="redes" placeholder="Redes sociales (opcional)" />
+        <textarea id="bio" placeholder="Descripción personal (opcional)" rows="4"></textarea>
+        <input type="file" id="foto" accept="image/*" required />
+        <button type="submit">Registrar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Sección Perfiles -->
+  <section id="perfiles">
+    <div class="card">
+      <h2>Perfiles de Talentos</h2>
+      <div id="talentList"></div>
+    </div>
+  </section>
+
+  <!-- Sección Conócenos - Mejorada -->
+  <section id="conocenos">
+    <div class="card">
+      <h2>Conócenos</h2>
+      <p>Somos un equipo de jóvenes apasionados por el arte, la cultura y la innovación social. Nicrea nació para visibilizar y potenciar el talento joven en las ciudades creativas de Nicaragua.</p>
+      
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-img-container">
+            <img src="https://raw.githubusercontent.com/cris290705/rally/main/WhatsApp%20Image%202025-06-06%20at%205.24.26%20PM%20(1).jpeg" 
+                 alt="María Fernanda López" 
+                 class="team-img">
+          </div>
+          <div class="team-info">
+            <strong>Cristhian López</strong>
+            <small>Marketing</small>
+            <em>Coordinador creativo,Programador y diseñador de la web.</em>
+          </div>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-img-container">
+            <img src="https://raw.githubusercontent.com/cris290705/rally/main/WhatsApp%20Image%202025-06-06%20at%205.24.26%20PM%20(2).jpeg" 
+                 alt="Arelys Parrales " 
+                 class="team-img">
+          </div>
+          <div class="team-info">
+            <strong>Arelys Parrales</strong>
+            <small>Marketing</small>
+            <em>Multitareas y Diseñadora estrategica.</em>
+          </div>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-img-container">
+            <img src="https://raw.githubusercontent.com/cris290705/rally/main/WhatsApp%20Image%202025-06-06%20at%205.24.26%20PM%20(3).jpeg" 
+                 alt="Anani Barbeyto" 
+                 class="team-img">
+          </div>
+          <div class="team-info">
+            <strong>Anani Barbeyto</strong>
+            <small>Marketing</small>
+            <em>Investigadora analitica y elaboradora de presupuesto.</em>
+          </div>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-img-container">
+            <img src="https://raw.githubusercontent.com/cris290705/rally/main/WhatsApp%20Image%202025-06-06%20at%205.24.26%20PM%20(4).jpeg" 
+                 alt="Chester Barbosa" 
+                 class="team-img">
+          </div>
+          <div class="team-info">
+            <strong>Chester Barbosa</strong>
+            <small>Marketing</small>
+            <em>Redactor de Informe y diseñador</em>
+          </div>
+        </div>
+        
+        <div class="team-card">
+          <div class="team-img-container">
+            <img src="https://raw.githubusercontent.com/cris290705/rally/main/WhatsApp%20Image%202025-06-06%20at%205.24.26%20PM.jpeg" 
+                 alt="Juslaydy Garcia" 
+                 class="team-img">
+          </div>
+          <div class="team-info">
+            <strong>Juslaydy Garcia</strong>
+            <small>Mercadologa</small>
+            <em>Diseñadora del logo y prototipo.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Contacto -->
+  <section id="contacto">
+    <div class="card">
+      <h2>Contacto</h2>
+      <p>Email: nicrearally25@gmail.com</p>
+      <p>WhatsApp: +505 7866 8148 o
++505 8658 0382</p>
+    </div>
+  </section>
+
+  <!-- Navegación -->
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#registro">Registro</a>
+    <a href="#perfiles">Perfiles</a>
+    <a href="#conocenos">Conócenos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <script>
+    const form = document.getElementById('talentForm');
+    const talentList = document.getElementById('talentList');
+
+    // Cargar talentos al iniciar
+    document.addEventListener('DOMContentLoaded', function() {
+      loadTalents();
+    });
+
+    function loadTalents() {
+      const talents = JSON.parse(localStorage.getItem('talents')) || [];
+      talents.forEach(talent => {
+        const card = createTalentCard(talent);
+        talentList.appendChild(card);
+      });
+    }
+
+    function createTalentCard(talent) {
+      const card = document.createElement('div');
+      card.className = 'talent-card';
+      card.innerHTML = `
+        <img src="${talent.foto}" class="talent-img" alt="Foto de ${talent.nombre}" />
+        <div>
+          <strong>${talent.nombre}</strong><br>
+          <em>${talent.ciudad}</em> - ${talent.categoria}<br>
+          📧 ${talent.correo}<br>
+          📞 ${talent.telefono}<br>
+          ${talent.bio}<br>
+          <small>${talent.redes}</small>
+        </div>
+      `;
+      return card;
+    }
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const telefono = document.getElementById('telefono').value;
+      const ciudad = document.getElementById('ciudad').value;
+      const categoria = document.getElementById('categoria').value;
+      const redes = document.getElementById('redes').value;
+      const bio = document.getElementById('bio').value;
+      const foto = document.getElementById('foto').files[0];
+
+      if (!foto) {
+        alert('Por favor sube una foto');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const talent = {
+          nombre,
+          correo,
+          telefono,
+          ciudad,
+          categoria,
+          redes,
+          bio,
+          foto: e.target.result
+        };
+
+        // Guardar en localStorage
+        saveTalent(talent);
+        
+        // Mostrar en la lista
+        const card = createTalentCard(talent);
+        talentList.appendChild(card);
+        
+        // Resetear formulario
+        form.reset();
+      };
+      reader.readAsDataURL(foto);
+    });
+
+    function saveTalent(talent) {
+      let talents = JSON.parse(localStorage.getItem('talents')) || [];
+      talents.push(talent);
+      localStorage.setItem('talents', JSON.stringify(talents));
+    }
+  </script>
+</body>
+</html>
